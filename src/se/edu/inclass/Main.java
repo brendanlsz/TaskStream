@@ -5,7 +5,10 @@ import se.edu.inclass.task.Deadline;
 import se.edu.inclass.task.Task;
 import se.edu.inclass.task.TaskNameComparator;
 
+import java.lang.reflect.Array;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -49,6 +52,14 @@ public class Main {
         return count;
     }
 
+    public static ArrayList<Task> filterTasksByString(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+        return filteredList;
+
+    }
+
     private static int countDeadlines(ArrayList<Task> tasksData) {
         int count = 0;
         for (Task t : tasksData) {
@@ -73,8 +84,18 @@ public class Main {
         }
     }
 
+
     public static void printDataWithStreams(ArrayList<Task> tasks) {
         System.out.println("Printing data using streams");
         tasks.forEach(System.out::println); //terminal operator
+    }
+
+    public static void printDeadlinesUsingStream(ArrayList<Task> tasks) {
+        tasks.stream()
+                .filter(t -> t instanceof Deadline)
+                .sorted((a, b) -> a.getDescription().toLowerCase().compareTo(b.getDescription().toLowerCase(Locale.ROOT)))
+                .forEach(System.out::println);
+
+
     }
 }
