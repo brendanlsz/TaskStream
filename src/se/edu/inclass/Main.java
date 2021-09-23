@@ -70,4 +70,9 @@ public class Main {
             }
         }
     }
+
+    public static void printDataWithStreams(ArrayList<Task> tasks) {
+        System.out.println("Printing data using streams");
+        tasks.forEach(System.out::println); //terminal operator
+    }
 }
